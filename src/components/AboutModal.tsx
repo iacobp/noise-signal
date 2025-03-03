@@ -5,7 +5,6 @@ import { FaCircleCheck, FaCircleXmark } from 'react-icons/fa6';
 import { LuLightbulb } from 'react-icons/lu';
 import { HiOutlineBookOpen } from 'react-icons/hi';
 import { MdOutlineAutoGraph } from 'react-icons/md';
-import { VscGithubAlt } from 'react-icons/vsc';
 import Image from 'next/image';
 
 interface AboutModalProps {

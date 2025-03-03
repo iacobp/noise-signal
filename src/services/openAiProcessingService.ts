@@ -410,7 +410,7 @@ async function processChunk(formattedData: string, queryToUse: string, startInde
       let result;
       try {
         result = JSON.parse(responseContent);
-      } catch (error) {
+      } catch (_error) {
         // If direct parsing fails, try to extract valid JSON
         console.log('[OPENAI-PROCESS] Initial JSON parsing failed, attempting to extract valid JSON');
         
@@ -422,7 +422,7 @@ async function processChunk(formattedData: string, queryToUse: string, startInde
             // Try parsing the extracted JSON
             result = JSON.parse(possibleJson);
             console.log('[OPENAI-PROCESS] Successfully extracted and parsed JSON from response');
-          } catch (error) {
+          } catch (_error) {
             // Still failed, try more aggressive correction
             console.log('[OPENAI-PROCESS] Extracted JSON parsing failed, attempting more aggressive correction');
             

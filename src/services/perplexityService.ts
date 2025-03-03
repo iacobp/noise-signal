@@ -345,7 +345,7 @@ IMPORTANT: Include the full URL starting with http:// or https:// for EVERY sour
               const matches = secondContent.match(pattern) || [];
               matches.forEach((url: string) => {
                 // Clean up the URL
-                let cleanUrl = url.replace(/[,."':;]+$/, '');
+                const cleanUrl = url.replace(/[,."':;]+$/, '');
                 if (cleanUrl.startsWith('http')) {
                   secondUrlMatches.add(cleanUrl);
                 }
@@ -431,8 +431,8 @@ IMPORTANT: Include the full URL starting with http:// or https:// for EVERY sour
       if (!citation.title && !citation.url) return; // Skip if no title or URL
       
       // Clean the title to remove any reference to Perplexity
-      let cleanedTitle = citation.title || `Research Source ${index + 1}`;
-      cleanedTitle = cleanedTitle.replace(/perplexity\.ai|perplexity\s+ai|perplexity/gi, 'Research');
+      const cleanedTitle = (citation.title || `Research Source ${index + 1}`)
+        .replace(/perplexity\.ai|perplexity\s+ai|perplexity/gi, 'Research');
       
       // Extract text or create a placeholder
       const sourceText = citation.text || 

@@ -11,8 +11,9 @@ const openai = new OpenAI({
 });
 
 // Constants
-const MAX_BATCH_SIZE = 10;
-const CHUNK_SIZE = 10;
+// Removing unused constants
+// const MAX_BATCH_SIZE = 10;
+// const CHUNK_SIZE = 10;
 
 // System prompt for OpenAI
 const SYSTEM_PROMPT = `You are a strategic market intelligence analyst with expertise in extracting valuable insights from large volumes of research data.
@@ -409,7 +410,7 @@ async function processChunk(formattedData: string, queryToUse: string, startInde
       let result;
       try {
         result = JSON.parse(responseContent);
-      } catch (initialParseError) {
+      } catch (error) {
         // If direct parsing fails, try to extract valid JSON
         console.log('[OPENAI-PROCESS] Initial JSON parsing failed, attempting to extract valid JSON');
         
@@ -421,7 +422,7 @@ async function processChunk(formattedData: string, queryToUse: string, startInde
             // Try parsing the extracted JSON
             result = JSON.parse(possibleJson);
             console.log('[OPENAI-PROCESS] Successfully extracted and parsed JSON from response');
-          } catch (extractionError) {
+          } catch (error) {
             // Still failed, try more aggressive correction
             console.log('[OPENAI-PROCESS] Extracted JSON parsing failed, attempting more aggressive correction');
             

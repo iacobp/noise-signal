@@ -1,17 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IoInformationCircleOutline, IoGlobeOutline } from 'react-icons/io5';
+import { IoInformationCircleOutline } from 'react-icons/io5';
 import { FaChevronUp } from 'react-icons/fa';
-import { RiTestTubeFill } from 'react-icons/ri';
-import styles from './page.module.css';
+import Image from 'next/image';
 
 import WelcomeScreen from '@/components/WelcomeScreen';
 import ResearchForm from '@/components/ResearchForm';
 import DataDisplay from '@/components/DataDisplay';
 import AboutModal from '@/components/AboutModal';
 import ThemeToggle from '@/components/ThemeToggle';
-import { processResearchQuery, fetchResearchData } from '@/services/researchService';
+import { fetchResearchData } from '@/services/researchService';
 import { classifyData } from '@/services/openaiService';
 import { ClassifiedData, ResearchData } from '@/types';
 
@@ -82,7 +81,7 @@ export default function Home() {
             {/* Header with logo, about button and theme toggle */}
             <div className="flex justify-between items-center mb-8">
               <div className="flex items-center">
-                <img src="/logos/NS icon blue.png" alt="Noise/Signal Logo" className="w-10 h-10 mr-3" />
+                <Image src="/logos/NS icon blue.png" alt="Noise/Signal Logo" width={40} height={40} className="mr-3" />
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">Noise/Signal</h1>
                 <div className="flex items-center ml-2">
                   <span className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs px-1.5 py-0.5 rounded">

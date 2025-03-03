@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { IoSend, IoSearch, IoSparklesOutline } from 'react-icons/io5';
+import { IoSend, IoSparklesOutline } from 'react-icons/io5';
 import { FaChevronDown } from 'react-icons/fa';
 import ExampleQueries from './ExampleQueries';
 

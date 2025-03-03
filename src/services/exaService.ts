@@ -137,7 +137,7 @@ async function fetchContentWithRetry(result: any, retryCount = 0): Promise<Resea
       const content = contentResult.text || contentResult.content || '';
       
       // Extract useful content - take up to 1000 characters or more
-      let extractedContent = content.length > 1000 ? `${content.substring(0, 1000)}...` : content;
+      const extractedContent = content.length > 1000 ? `${content.substring(0, 1000)}...` : content;
       
       // Clean the title to remove any mention of Exa or similar services
       let cleanedTitle = result.title || 'Research Result';

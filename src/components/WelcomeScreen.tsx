@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { IoArrowForward, IoRocketOutline, IoSearchOutline, IoSparklesOutline } from 'react-icons/io5';
 import { FaCircleCheck, FaCircleXmark } from 'react-icons/fa6';
 import ThemeToggle from './ThemeToggle';
+import Image from 'next/image';
 
 interface WelcomeScreenProps {
   onStart: () => void;
@@ -29,7 +30,7 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           className="mb-8"
         >
           <div className="flex justify-center items-center">
-            <img src="/logos/NS icon blue.png" alt="Noise/Signal Logo" className="w-16 h-16" />
+            <Image src="/logos/NS icon blue.png" alt="Noise/Signal Logo" width={64} height={64} />
           </div>
           <h1 className="mt-4 text-4xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
             Noise/Signal

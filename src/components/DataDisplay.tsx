@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaCircleCheck, FaCircleXmark } from 'react-icons/fa6';
 import { LuRocket } from 'react-icons/lu';
-import { IoSearch, IoChevronDown, IoChevronUp, IoLink, IoInformationCircleOutline } from 'react-icons/io5';
-import { MdOutlineKeyboardArrowRight, MdOutlineLink } from 'react-icons/md';
+import { IoSearch, IoChevronDown, IoChevronUp, IoLink } from 'react-icons/io5';
+import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { VscBook } from 'react-icons/vsc';
-import { RiTestTubeFill } from 'react-icons/ri';
 
 import { ResearchData } from '@/types';
 
@@ -168,58 +167,6 @@ export default function DataDisplay({
     }
     
     return bulletPoints;
-  };
-  
-  // Helper function to condense a bullet point or sentence
-  const condenseBulletPoint = (text: string): string => {
-    // Remove common filler phrases
-    let condensed = text
-      .replace(/(?:it is|there is|there are) (important|worth noting|notable|significant) that\s+/gi, '')
-      .replace(/it (can|should|may|might|could) be noted that\s+/gi, '')
-      .replace(/(?:additionally|furthermore|moreover|in addition|besides),?\s+/gi, '')
-      .replace(/(?:specifically|particularly|especially|in particular),?\s+/gi, '')
-      .replace(/(?:generally|typically|usually|commonly|frequently|often),?\s+/gi, '')
-      .replace(/(?:for example|for instance|such as),?\s+/gi, '')
-      .replace(/\b(?:very|extremely|significantly|substantially|considerably)\s+/gi, '')
-      .replace(/\bin order to\b/gi, 'to')
-      .replace(/\bin the context of\b/gi, 'in')
-      .replace(/\bwith (regards|respect) to\b/gi, 'regarding')
-      .replace(/\bon the (basis|grounds) of\b/gi, 'based on')
-      .replace(/\bat this (time|point in time|moment|juncture)\b/gi, 'now')
-      .replace(/\bin the event that\b/gi, 'if')
-      .replace(/\bin spite of the fact that\b/gi, 'although')
-      .replace(/\bdue to the fact that\b/gi, 'because')
-      .replace(/\bin the near future\b/gi, 'soon');
-    
-    // Make sure we don't cut off in the middle of a sentence
-    if (condensed.length > 130) {
-      // Try to find a sensible cutting point
-      const cutPoint = Math.max(
-        condensed.lastIndexOf('. ', 130),
-        condensed.lastIndexOf('? ', 130),
-        condensed.lastIndexOf('! ', 130),
-        condensed.lastIndexOf(', ', 120)
-      );
-      
-      if (cutPoint > 60) {
-        // If we have a sentence or clause boundary, cut there
-        if (condensed.charAt(cutPoint) === '.') {
-          condensed = condensed.substring(0, cutPoint + 1);
-        } else {
-          condensed = condensed.substring(0, cutPoint + 1) + '...';
-        }
-      } else {
-        // If no good cutting point, just truncate with ellipsis
-        condensed = condensed.substring(0, 130) + '...';
-      }
-    }
-    
-    // Make sure sentences end with proper punctuation
-    if (!condensed.match(/[.!?]$/)) {
-      condensed += '.';
-    }
-    
-    return condensed;
   };
   
   // Determine which sources to use - use allOriginalSources if provided, otherwise fall back to signals + noise

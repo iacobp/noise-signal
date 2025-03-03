@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IoClose, IoRocketOutline } from 'react-icons/io5';
+import { IoCloseOutline } from 'react-icons/io5';
 import { FaCircleCheck, FaCircleXmark } from 'react-icons/fa6';
 import { LuLightbulb } from 'react-icons/lu';
 import { HiOutlineBookOpen } from 'react-icons/hi';
 import { MdOutlineAutoGraph } from 'react-icons/md';
+import { VscGithubAlt } from 'react-icons/vsc';
+import Image from 'next/image';
 
 interface AboutModalProps {
   isOpen: boolean;
@@ -42,7 +44,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
               {/* Header */}
               <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
                 <h2 className="text-xl font-semibold flex items-center text-gray-900 dark:text-white">
-                  <img src="/logos/NS icon blue.png" alt="Logo" className="w-8 h-8 mr-3" />
+                  <Image src="/logos/NS icon blue.png" alt="Logo" width={32} height={32} className="mr-3" />
                   About Noise/Signal
                 </h2>
                 <button
@@ -50,7 +52,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
                   className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transition-colors"
                   aria-label="Close"
                 >
-                  <IoClose size={24} />
+                  <IoCloseOutline size={24} />
                 </button>
               </div>
               

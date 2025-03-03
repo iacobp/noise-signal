@@ -1,14 +1,29 @@
 [build]
-  command = "npm run build"
+  command = "npm ci && npm run build"
   publish = ".next"
 
 [build.environment]
   NEXT_TELEMETRY_DISABLED = "1"
-  NODE_VERSION = "18"
+  # Use a specific Node version to ensure compatibility
+  NODE_VERSION = "18.17.0"
+  # Increase memory limit for Node.js
+  NODE_OPTIONS = "--max_old_space_size=4096"
 
 # Define NODE_ENV for builds
 [context.production.environment]
   NODE_ENV = "production"
+
+# Enable build caching
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
 
 # Handle Next.js routing
 [[plugins]]

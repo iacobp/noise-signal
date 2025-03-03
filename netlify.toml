@@ -4,10 +4,22 @@
 
 [build.environment]
   NEXT_TELEMETRY_DISABLED = "1"
+  NODE_VERSION = "18"
 
 # Handle Next.js routing
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Handle 404s for SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# Define NODE_ENV for builds
+[context.production.environment]
+  NODE_ENV = "production"
 
 # Redirects and rewrites
 [[redirects]]

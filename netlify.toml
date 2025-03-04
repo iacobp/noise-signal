@@ -5,7 +5,7 @@
 [build.environment]
   NEXT_TELEMETRY_DISABLED = "1"
   # Update Node version to meet Next.js requirements
-  NODE_VERSION = "18.17.0"
+  NODE_VERSION = "18.18.0"
   # Increase memory limit for Node.js
   NODE_OPTIONS = "--max_old_space_size=4096"
   SECRETS_SCAN_OMIT_PATHS = ".next,.netlify"

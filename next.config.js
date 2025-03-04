@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    unoptimized: true,
+    domains: ['localhost', 'noise-signal.netlify.app']
+  },
   // Ensure modules are found properly
   webpack: (config, { isServer }) => {
     // Add fallbacks and handle module resolution

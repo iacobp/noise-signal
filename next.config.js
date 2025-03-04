@@ -32,8 +32,7 @@ const nextConfig = {
   },
   // Optimize caching for builds
   experimental: {
-    optimizeCss: true,
-    esmExternals: 'loose',
+    optimizeCss: true
   },
 }
 

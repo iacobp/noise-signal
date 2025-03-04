@@ -3,8 +3,6 @@ import { ResearchData } from '@/types';
 
 // This would be stored in environment variables in a real app
 const EXA_API_KEY = process.env.NEXT_PUBLIC_EXA_API_KEY || '';
-const EXA_SEARCH_URL = 'https://api.exa.ai/search';
-const EXA_CONTENTS_URL = 'https://api.exa.ai/contents';
 
 // Maximum retries for API calls
 const MAX_RETRIES = 2;
@@ -25,24 +23,17 @@ export async function fetchExaData(query: string): Promise<ResearchData[]> {
     console.log(`Fetching data from EXA API for query: ${query}`);
     
     // Step 1: Perform search using auto mode
-    const searchResponse = await axios.post(
-      EXA_SEARCH_URL,
-      {
+    const searchResponse = await axios.post('/api/exa', {
+      endpoint: 'search',
+      data: {
         query: query,
         numResults: 15,
         searchType: 'auto',
         useAutoprompt: true,
         highlightResults: true,
         includeDomains: []
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${EXA_API_KEY}`,
-          'Accept': 'application/json'
-        }
       }
-    );
+    });
 
     // Extract search results
     const searchResults = searchResponse.data.results || [];
@@ -113,23 +104,15 @@ async function fetchContentWithRetry(result: any, retryCount = 0): Promise<Resea
       };
     }
 
-    const contentsResponse = await axios.post(
-      EXA_CONTENTS_URL,
-      {
+    const contentsResponse = await axios.post('/api/exa', {
+      endpoint: 'contents',
+      data: {
         urls: [result.url],
         text: true,
-        markdown: false, // Set to false, as markdown might cause parsing issues
-        livecrawl: 'fallback' // Change from 'forced' to 'fallback' which is a valid value
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${EXA_API_KEY}`,
-          'Accept': 'application/json'
-        },
-        timeout: 20000 // Increase timeout to give more time for content retrieval
+        markdown: false,
+        livecrawl: 'fallback'
       }
-    );
+    });
     
     // Check if we got valid results
     if (contentsResponse.data?.results && contentsResponse.data.results.length > 0) {

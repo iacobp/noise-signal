@@ -282,9 +282,20 @@ function enhanceContentFormatting(content: string): string {
 function mockClassification(researchData: ResearchData[], query: string): ClassifiedData {
   console.log('[OPENAI-MOCK] Using mock classification for', researchData.length, 'items');
   
-  // Simple mock implementation that uses confidence scores to determine signals vs. noise
-  const signals = researchData.filter(item => item.confidence >= 0.75);
-  const noise = researchData.filter(item => item.confidence < 0.75);
+  // Sort by confidence and filter out items without URLs
+  const validData = researchData.filter(item => item.url && item.source);
+  const sortedData = [...validData].sort((a, b) => b.confidence - a.confidence);
+  
+  // Take top 60% as signals if they meet minimum criteria
+  const signalCount = Math.max(1, Math.floor(sortedData.length * 0.6));
+  const signals = sortedData
+    .slice(0, signalCount)
+    .filter(item => item.confidence >= 0.5);
+  
+  // Rest are noise
+  const noise = sortedData
+    .slice(signalCount)
+    .concat(sortedData.slice(0, signalCount).filter(item => item.confidence < 0.5));
   
   let strategicDecision = `Not enough high-confidence data available for "${query}" to make a strategic decision.`;
   

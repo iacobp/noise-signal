@@ -387,6 +387,7 @@ async function processChunk(formattedData: string, queryToUse: string, startInde
       model: 'gpt-4o',
       temperature: 0.3,
       max_tokens: 4000,
+      response_format: { type: "json_object" },
       messages: [
         {
           role: 'system',
@@ -407,46 +408,7 @@ async function processChunk(formattedData: string, queryToUse: string, startInde
     
     try {
       // First attempt to parse the response directly
-      let result;
-      try {
-        result = JSON.parse(responseContent);
-      } catch (_error) {
-        // If direct parsing fails, try to extract valid JSON
-        console.log('[OPENAI-PROCESS] Initial JSON parsing failed, attempting to extract valid JSON');
-        
-        // Look for JSON-like structure enclosed in curly braces
-        const jsonMatch = responseContent.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-          const possibleJson = jsonMatch[0];
-          try {
-            // Try parsing the extracted JSON
-            result = JSON.parse(possibleJson);
-            console.log('[OPENAI-PROCESS] Successfully extracted and parsed JSON from response');
-          } catch (_error) {
-            // Still failed, try more aggressive correction
-            console.log('[OPENAI-PROCESS] Extracted JSON parsing failed, attempting more aggressive correction');
-            
-            // Try to fix common JSON syntax errors
-            const correctedJson = possibleJson
-              .replace(/,(\s*[\]}])/g, '$1') // Remove trailing commas
-              .replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:/g, '"$2":') // Ensure property names are quoted
-              .replace(/'/g, '"'); // Replace single quotes with double quotes
-            
-            try {
-              result = JSON.parse(correctedJson);
-              console.log('[OPENAI-PROCESS] Successfully parsed corrected JSON');
-            } catch (correctionError) {
-              // If all attempts fail, return empty result
-              console.error('[OPENAI-PROCESS] All JSON parsing attempts failed:', correctionError);
-              result = { signals: [], noise: [], statistics: [], strategicDecision: '' };
-            }
-          }
-        } else {
-          // No JSON-like structure found
-          console.error('[OPENAI-PROCESS] No valid JSON structure found in response');
-          result = { signals: [], noise: [], statistics: [], strategicDecision: '' };
-        }
-      }
+      let result = JSON.parse(responseContent);
       
       // Log the classification coverage
       const signalCount = result.signals?.length || 0;
